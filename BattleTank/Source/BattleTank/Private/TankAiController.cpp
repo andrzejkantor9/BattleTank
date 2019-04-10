@@ -6,6 +6,29 @@
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 
+void ATankAiController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	auto PlayerTank = GetPlayerTank();
+
+	if (PlayerTank)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AI controller found player: %s"), *(PlayerTank->GetName()));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("AI failed to posses a tank."));
+	}
+
+	GetPlayerTank();
+}
+
+void ATankAiController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
 ATank* ATankAiController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
@@ -40,20 +63,11 @@ ATank * ATankAiController::GetPlayerTank() const
 	return Cast<ATank>(PlayerPawn);
 }
 
-void ATankAiController::BeginPlay()
+void ATankAiController::AimTowardsCrosshair()
 {
-	Super::BeginPlay();
+	if (!GetControlledTank()) { return; }
 
-	auto PlayerTank = GetPlayerTank();
-
-	if (PlayerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AI controller found player: %s"), *(PlayerTank->GetName()));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("AI failed to posses a tank."));
-	}
-
-	GetPlayerTank();
+	//GetWordLocation if linetraced through cursor
+	//If it hits the landscape
+		//tell the controlled tank to aim at this point
 }

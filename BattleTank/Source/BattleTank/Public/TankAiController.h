@@ -16,8 +16,12 @@ class BATTLETANK_API ATankAiController : public AAIController
 	GENERATED_BODY()
 	
 private:
-	virtual void BeginPlay() override;
+	void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 	ATank* GetControlledTank() const;
 	ATank* GetPlayerTank() const;
+	//start the tank aiming the barrel towards crosshair so that a shoot would hit
+	//where the corsshair intersects the world
+	void AimTowardsCrosshair();
 };

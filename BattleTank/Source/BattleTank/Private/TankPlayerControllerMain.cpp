@@ -20,6 +20,6 @@ void ATankPlayerControllerMain::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("No possesed player tank."));
+		UE_LOG(LogTemp, Error, TEXT("Player failed to posses a tank."));
 	}
 }

@@ -27,6 +27,8 @@ void ATankAiController::BeginPlay()
 void ATankAiController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	AimTowardsCrosshair();
 }
 
 ATank* ATankAiController::GetControlledTank() const
@@ -67,7 +69,25 @@ void ATankAiController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	//GetWordLocation if linetraced through cursor
-	//If it hits the landscape
-		//tell the controlled tank to aim at this point
+	FVector HitLocation = FVector(.0f); //out parameter
+	if (GetSightRayHitLocation(HitLocation)) //has "side effect "- it is going to raytrace
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
+		//GetWordLocation of linetraced through cursor
+		//If it hits the landscape
+			//tell the controlled tank to aim at this point
+	}
+}
+
+//out parameters can be changed in const methods
+bool ATankAiController::GetSightRayHitLocation(FVector &OutHitLocation) const
+{
+	//raycast through the crosshair untill we hit terrain or limited by range of 9km
+	//get the object we hit or information thet we didnt hit anything
+	//if we hit the terrain
+		//set outhitlocation at point where ray is hitting 
+		//return true
+
+	OutHitLocation = FVector(1.f);
+	return false;
 }

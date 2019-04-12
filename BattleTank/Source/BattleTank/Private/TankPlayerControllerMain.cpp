@@ -60,7 +60,12 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	FVector2D ScreenLocation = FVector2D((StaticCast<float>(ViewportSizeX) * CrosshairXLocation), (StaticCast<float>(ViewportSizeY) * CrosshairYLocation));
-	UE_LOG(LogTemp, Warning, TEXT("Screen Location: %s"), *ScreenLocation.ToString());
+
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Screen Direction: %s"), *LookDirection.ToString());
+	}
 
 	//raycast through the crosshair untill we hit terrain or limited by range of 9km
 	//get the object we hit or information thet we didnt hit anything
@@ -70,4 +75,14 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 
 	OutHitLocation = FVector(1.f);
 	return false;
+}
+
+bool ATankPlayerControllerMain::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+	FVector CameraWorldLocation; //to be disbanded
+	return DeprojectScreenPositionToWorld(
+		ScreenLocation.X, 
+		ScreenLocation.Y, 
+		CameraWorldLocation, 
+		LookDirection);
 }

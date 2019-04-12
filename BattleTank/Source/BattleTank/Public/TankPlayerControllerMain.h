@@ -31,4 +31,5 @@ private:
 	//where the corsshair intersects the world
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector &) const;
+	bool GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const;
 };

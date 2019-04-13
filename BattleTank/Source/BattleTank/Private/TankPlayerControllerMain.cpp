@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
+#include "DrawDebugHelpers.h"
 
 void ATankPlayerControllerMain::BeginPlay()
 {
@@ -35,9 +36,6 @@ ATank* ATankPlayerControllerMain::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
-
-
-
 void ATankPlayerControllerMain::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
@@ -64,7 +62,8 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Screen Direction: %s"), *LookDirection.ToString());
+		GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *OutHitLocation.ToString());
 	}
 
 	//raycast through the crosshair untill we hit terrain or limited by range of 9km
@@ -85,4 +84,25 @@ bool ATankPlayerControllerMain::GetLookDirection(FVector2D ScreenLocation, FVect
 		ScreenLocation.Y, 
 		CameraWorldLocation, 
 		LookDirection);
+}
+
+bool ATankPlayerControllerMain::GetLookVectorHitLocation(FVector LookDirection, FVector &HitLocation) const
+{
+	FHitResult HitResult;
+	FVector LineTraceStart = PlayerCameraManager->GetCameraLocation(); 
+	FVector LineTraceEnd = LineTraceStart + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(
+			HitResult, 
+			LineTraceStart, 
+			LineTraceEnd, 
+			ECollisionChannel::ECC_Visibility)
+		)
+	{
+		HitLocation = HitResult.Location;
+		//DrawDebugLine(GetWorld(), LineTraceStart, HitLocation, FColor(255, 0, 0), true, -1.f, 0.f, 10.f);
+		return true;
+	}
+	HitLocation = FVector(0.f);
+	return false;
 }

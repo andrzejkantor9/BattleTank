@@ -40,12 +40,10 @@ void ATankPlayerControllerMain::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
 
-	FVector HitLocation = FVector(.0f); //out parameter
+	FVector HitLocation; //out parameter
 	if (GetSightRayHitLocation(HitLocation)) //has "side effect "- it is going to raytrace
 	{
-		//GetWordLocation of linetraced through cursor
-		//If it hits the landscape
-			//tell the controlled tank to aim at this point
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
@@ -63,7 +61,7 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		GetLookVectorHitLocation(LookDirection, OutHitLocation);
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *OutHitLocation.ToString());
+		return true;
 	}
 
 	//raycast through the crosshair untill we hit terrain or limited by range of 9km
@@ -100,7 +98,7 @@ bool ATankPlayerControllerMain::GetLookVectorHitLocation(FVector LookDirection, 
 		)
 	{
 		HitLocation = HitResult.Location;
-		//DrawDebugLine(GetWorld(), LineTraceStart, HitLocation, FColor(255, 0, 0), true, -1.f, 0.f, 10.f);
+		//DrawDebugLine(GetWorld(), LineTraceStart, HitLocation, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 		return true;
 	}
 	HitLocation = FVector(0.f);

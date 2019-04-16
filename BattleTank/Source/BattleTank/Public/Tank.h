@@ -28,8 +28,6 @@ protected:
 private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	// Called every frame
-	virtual void Tick(float ) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 100000.f; //find sensible default

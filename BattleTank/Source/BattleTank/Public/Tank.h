@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "TankAimingComponent.h"
 #include "Tank.generated.h" // generated.h always must be last include
 
+class UTankAimingComponent;
 class UTankBarrel;
 
 UCLASS()

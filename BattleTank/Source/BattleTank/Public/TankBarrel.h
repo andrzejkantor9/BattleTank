@@ -6,10 +6,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "TankBarrel.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS(meta = (BlueprintSpawnableComponent), HideCategories = "Collision") 
+//hide categories - allows to hide categories from edit in blueprint
+//that may protect of breaking the game by modyfing unwanted values
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
@@ -17,4 +16,11 @@ class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 public:
 	void Elevate(float DegreesPerSecond);
 
+private:
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MaxDegreesPerSecond = 20.f; 
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MinElevation= 0.f; 
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MaxElevation = 50.f; 
 };

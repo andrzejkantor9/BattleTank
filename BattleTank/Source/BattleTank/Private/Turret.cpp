@@ -5,9 +5,9 @@
 
 void UTurret::Rotate(float RelativeSpeed)
 {
-	//RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
+	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
 	float RotationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
 	float Rotation = RelativeRotation.Yaw + RotationChange;
 
-	SetRelativeRotation(FRotator(Rotation, 0.f, 0.f));
+	SetRelativeRotation(FRotator(0.f, Rotation, 0.f));
 }

@@ -6,6 +6,7 @@
 #include "Math/Rotator.h"
 #include "TankBarrel.h"
 #include "Turret.h"
+#include "Engine/StaticMesh.h"
 #include "Components/StaticMeshComponent.h"
 
 // Sets default values for this component's properties
@@ -67,6 +68,8 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+	//UStaticMesh StaticMesh = UStaticMesh()
+	//Barrel->SetStaticMesh()
 }
 
 void UTankAimingComponent::SetTurretReference(UTurret * TurretToSet)

@@ -6,7 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "TankBarrel.generated.h"
 
-UCLASS(meta = (BlueprintSpawnableComponent), HideCategories = "Collision") 
+UCLASS(meta = (BlueprintSpawnableComponent))//, HideCategories = "Collision") 
 //hide categories - allows to hide categories from edit in blueprint
 //that may protect of breaking the game by modyfing unwanted values
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent

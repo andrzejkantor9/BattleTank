@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(meta = (BlueprintSpawnableComponent), HideCategories = "Collision")
+UCLASS(meta = (BlueprintSpawnableComponent))//, HideCategories = "Collision")
 class BATTLETANK_API UTurret : public UStaticMeshComponent
 {
 	GENERATED_BODY()

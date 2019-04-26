@@ -45,6 +45,7 @@ private:
 
 	//local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
+	UTurret* Turret = nullptr;
 	double LastFireTime = 0.f;
 
 	// Called to bind functionality to input

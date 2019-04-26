@@ -3,6 +3,7 @@
 
 #include "Turret.h"
 
+
 void UTurret::Rotate(float RelativeSpeed)
 {
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
@@ -10,4 +11,9 @@ void UTurret::Rotate(float RelativeSpeed)
 	float Rotation = RelativeRotation.Yaw + RotationChange;
 
 	SetRelativeRotation(FRotator(0.f, Rotation, 0.f));
+}
+
+UTurret::UTurret()
+{
+
 }

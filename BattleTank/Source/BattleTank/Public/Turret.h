@@ -16,6 +16,7 @@ class BATTLETANK_API UTurret : public UStaticMeshComponent
 	
 public:
 	void Rotate(float RelativeSpeed);
+	UTurret();
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = Setup)

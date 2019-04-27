@@ -9,7 +9,7 @@
 /**
  TankTracks is used for setting up maximum driving force, and apply forces to the tank
  */
-UCLASS(meta = (BlueprintSpawnableComponent))//, HideCategories = "Collision")
+UCLASS(meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankTracks : public UStaticMeshComponent
 {
 	GENERATED_BODY()
@@ -21,5 +21,5 @@ public:
 	
 	//Max force per track in Newtons
 	UPROPERTY(EditDefaultsOnly)
-		float TrackMaxDrivingForce = 400000.f; //assume 40 tonne tank, and 1g acceleration
+		float TrackMaxDrivingForce = 40000000000.f; //assume 40 tonne tank, and 1g acceleration //tweaked after this comment
 };

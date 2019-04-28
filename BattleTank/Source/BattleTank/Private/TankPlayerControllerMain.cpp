@@ -13,16 +13,8 @@ void ATankPlayerControllerMain::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto ControlledTank = GetControlledTank();
+	ATank* ControlledTank = GetControlledTank();
 	
-	if (ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player is possesing: %s"), *(ControlledTank->GetName()));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Player failed to posses a tank."));
-	}
 }
 
 void ATankPlayerControllerMain::Tick(float DeltaTime)

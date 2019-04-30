@@ -6,6 +6,7 @@
 #include "Engine/World.h"
 #include "Tank.h"
 #include "GameFramework/PlayerController.h"
+#include "AIController.h"
 
 void ATankAiController::BeginPlay()
 {
@@ -22,7 +23,8 @@ void ATankAiController::Tick(float DeltaTime)
 
 	if (PlayerTank)
 	{
-		//TODO move towards player
+		// move towards player
+		MoveToActor(PlayerTank, AcceptanceRadius);//TODO find out if the unit is in cm
 
 		//aim towards player
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());

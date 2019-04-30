@@ -18,6 +18,8 @@ public:
 	void Tick(float) override;
 
 private:
-	ATank* GetPlayerTank() const;
-	ATank* GetControlledTank() const;
+	//How close can the AI tank get to the player
+	UPROPERTY(EditDefaultsOnly)
+		float AcceptanceRadius = 3000.f;
+
 };

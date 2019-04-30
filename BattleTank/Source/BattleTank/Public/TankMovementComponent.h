@@ -20,6 +20,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 		void IntendMoveForward(float Throw);
 	UFUNCTION(BlueprintCallable, Category = Setup)
+		void IntendTurnRight(float Throw);
+	UFUNCTION(BlueprintCallable, Category = Setup)
 		void InitializeComponent(UTankTracks* LeftTrackToSet, UTankTracks* RightTrackToSet);
 
 private:

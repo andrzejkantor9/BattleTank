@@ -25,7 +25,6 @@ void UTankMovementComponent::InitializeComponent(UTankTracks * LeftTrackToSet, U
 {
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
-	//TODO prevent double speed by using dual controll
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
@@ -41,5 +40,5 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	float RightThrow = FVector::CrossProduct(AIForwardIntention, TankForward).Z;
 	IntendTurnRight(RightThrow);
 	
-	//UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s."), *Name, *MoveVelocity.GetSafeNormal().ToString());
+//	UE_LOG(LogTemp, Warning, TEXT("Forward Throw: %f, Right Throw: %f."), ForwardThrow, RightThrow);
 }

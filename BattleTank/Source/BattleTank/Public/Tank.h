@@ -30,8 +30,9 @@ public:
 		void Fire();
 
 protected:
-	UTankAimingComponent *TankAimingComponent = nullptr;
-	UPROPERTY(BlueprintReadOnly, Category = Firing)
+	UPROPERTY(BlueprintReadOnly, Category = "Aiming") //TODO change firing categories to aiming
+		UTankAimingComponent *TankAimingComponent = nullptr;
+	UPROPERTY(BlueprintReadOnly, Category = "Movement")
 		UTankMovementComponent *TankMovementComponent = nullptr;
 
 private:

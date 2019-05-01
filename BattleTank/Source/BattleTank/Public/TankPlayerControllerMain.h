@@ -17,6 +17,10 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float) override;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControlledTank() const;
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 		float CrosshairXLocation = .5f;
@@ -26,7 +30,6 @@ private:
 		float LineTraceRange = 1000000.f;
 	FVector2D ScreenLocation;
 
-	ATank* GetControlledTank() const;
 	//start the tank aiming the barrel towards crosshair so that a shoot would hit
 	//where the corsshair intersects the world
 	void AimTowardsCrosshair();

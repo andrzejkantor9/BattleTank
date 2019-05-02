@@ -32,16 +32,3 @@ void ATankAiController::Tick(float DeltaTime)
 		ControlledTank->Fire(); //TODO limit fire rate
 	}
 }
-/*
-ATank* ATankAiController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}*/
-/*
-ATank * ATankAiController::GetPlayerTank() const
-{
-	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!PlayerPawn) { return nullptr; }
-
-	return Cast<ATank>(PlayerPawn);
-}*/

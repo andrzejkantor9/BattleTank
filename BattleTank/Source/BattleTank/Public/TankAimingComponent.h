@@ -3,8 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <iostream>
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
+
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
 
 class UTankBarrel; //Forward declaration
 class UTurret;
@@ -27,6 +36,8 @@ protected:
 	void MoveBarrelTowards(FVector AimDirection);
 	void RotateTurret(FVector AimDirection);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
+		EFiringState FiringState = EFiringState::Reloading;
 private:
 	UTankBarrel *Barrel = nullptr;
 	UTurret *Turret = nullptr;

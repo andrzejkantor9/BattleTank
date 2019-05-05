@@ -6,7 +6,6 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" // generated.h always must be last include
 
-class UTankAimingComponent;
 class UTankBarrel;
 class UTurret;
 class AProjectile;
@@ -20,13 +19,8 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 	
-	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = "Actions")
 		void Fire();
-
-protected:
-	UPROPERTY(BlueprintReadOnly, Category = "Aiming") //TODO change firing categories to aiming
-		UTankAimingComponent *TankAimingComponent = nullptr;
 
 private:
 	virtual void BeginPlay() override;

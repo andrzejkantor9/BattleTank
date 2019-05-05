@@ -10,7 +10,6 @@ class UTankAimingComponent;
 class UTankBarrel;
 class UTurret;
 class AProjectile;
-class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -28,8 +27,6 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming") //TODO change firing categories to aiming
 		UTankAimingComponent *TankAimingComponent = nullptr;
-	UPROPERTY(BlueprintReadOnly, Category = "Movement")
-		UTankMovementComponent *TankMovementComponent = nullptr;
 
 private:
 	virtual void BeginPlay() override;

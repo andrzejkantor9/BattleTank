@@ -2,15 +2,15 @@
 
 #include "Tank.h"
 
-#include "ConstructorHelpers.h"
-#include "Components/StaticMeshComponent.h"
 #include "TankAimingComponent.h"
-#include "GameFramework/Actor.h"
-#include "Engine/World.h"
 #include "TankBarrel.h"
 #include "Turret.h"
 #include "Projectile.h"
-#include "TankMovementComponent.h"
+
+#include "ConstructorHelpers.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/Actor.h"
+#include "Engine/World.h"
 #include "Engine/StaticMeshSocket.h"
 
 // Sets default values

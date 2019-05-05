@@ -3,7 +3,6 @@
 
 #include "Turret.h"
 
-
 void UTurret::Rotate(float RelativeSpeed)
 {
 	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);

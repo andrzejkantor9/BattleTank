@@ -34,6 +34,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
+	//TODO remove when firing methos is moved from the tank
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000.f; //find sensible default
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")

@@ -29,7 +29,7 @@ void ATankAiController::Tick(float DeltaTime)
 	MoveToActor(PlayerTank, AcceptanceRadius);//TODO find out if the unit is in cm
 
 	//aim towards player
-	UTankAimingComponent* TankAimingComponent = PlayerTank->FindComponentByClass<UTankAimingComponent>();
+	UTankAimingComponent* TankAimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
 	TankAimingComponent->AimAt(PlayerTank->GetActorLocation());
 
 	UE_LOG(LogTemp, Warning, TEXT("FIRING"));

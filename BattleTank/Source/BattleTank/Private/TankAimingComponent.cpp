@@ -15,6 +15,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
+#include "Math/Vector.h"
 #include "Engine/StaticMeshSocket.h"
 
 // Sets default values for this component's properties
@@ -36,7 +37,18 @@ void UTankAimingComponent::BeginPlay()
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Aiming Component TICK."));
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds) {FiringState = EFiringState::Reloading; }
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds) 
+	{
+		FiringState = EFiringState::Reloading; 
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else
+	{
+		FiringState = EFiringState::Locked;
+	}
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
@@ -60,6 +72,15 @@ void UTankAimingComponent::RotateTurret(FVector AimDirection)
 	Turret->Rotate(DeltaRotator.Yaw);
 }
 
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; } // only use ensure if the failure should never happen, otherwise handle the error
+
+	return !(AimDirection.Equals(
+		Barrel->GetForwardVector(),
+		0.01f));
+}
+
 void UTankAimingComponent::InitializeComponent(UTankBarrel * BarrelToSet, UTurret * TurretToSet)
 {
 	Barrel = BarrelToSet;
@@ -69,7 +90,7 @@ void UTankAimingComponent::InitializeComponent(UTankBarrel * BarrelToSet, UTurre
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure(Barrel)) { return; }
-	FVector OutLaunchVelocity(0.f);
+	FVector OutLaunchVelocity(0.f); 
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
@@ -86,7 +107,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 	if (bHaveAimSolution)
 	{
-		FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 		RotateTurret(AimDirection);
 	}

@@ -16,9 +16,15 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
-	LeftTrack->SetThrottle(Throw);
-	RightTrack->SetThrottle(-Throw);
-
+	
+	float TurnMultiplier = 1.5f; //TODO enable turning in place
+	/*if (GetOwner()->GetVelocity().X == 0.f 
+		&&
+		GetOwner()->GetVelocity().Y == 0.f
+		) { TurnMultiplier = 2.5f; }*/
+	LeftTrack->SetThrottle(Throw * TurnMultiplier);
+	RightTrack->SetThrottle(-Throw * TurnMultiplier);
+	
 }
 
 void UTankMovementComponent::InitializeComponent(UTankTracks * LeftTrackToSet, UTankTracks * RightTrackToSet)

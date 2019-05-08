@@ -18,6 +18,10 @@ public:
 	//Set throttle between -1.0 and 1.0
 	UFUNCTION(BlueprintCallable, Category = "Input")
 		void SetThrottle(float Throttle);
+
+	UTankTracks();
+
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction) override;
 	
 	//Max force per track in Newtons
 	UPROPERTY(EditDefaultsOnly)

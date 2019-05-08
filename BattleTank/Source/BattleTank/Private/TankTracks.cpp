@@ -9,6 +9,12 @@ UTankTracks::UTankTracks()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+void UTankTracks::BeginPlay()
+{
+	Super::BeginPlay();
+	OnComponentHit.AddDynamic(this, &UTankTracks::OnHit);
+}
+
 void UTankTracks::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -25,6 +31,11 @@ void UTankTracks::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	UStaticMeshComponent* TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	auto CorrectionOfForce = (TankRoot->GetMass() * CorrectionOfAcceleration) / 2; //dividing by 2 because there are two tracks
 	TankRoot->AddForce(CorrectionOfForce);
+}
+
+void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("ON GROUND HIT"));
 }
 
 void UTankTracks::SetThrottle(float Throttle)

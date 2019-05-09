@@ -8,6 +8,8 @@
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
+
+	LeftTrack->TurnMultiplier = 1.f;
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 
@@ -22,6 +24,8 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 		&&
 		GetOwner()->GetVelocity().Y == 0.f
 		) { TurnMultiplier = 2.5f; }*/
+
+	LeftTrack->TurnMultiplier = 1.5f;
 	LeftTrack->SetThrottle(Throw * TurnMultiplier);
 	RightTrack->SetThrottle(-Throw * TurnMultiplier);
 	

@@ -3,8 +3,6 @@
 
 #include "TankTracks.h"
 
-float UTankTracks::TurnMultiplier = 1.f;
-
 UTankTracks::UTankTracks()
 {
 	PrimaryComponentTick.bCanEverTick = false;
@@ -34,8 +32,6 @@ void UTankTracks::ApplySidewaysForce()
 
 void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("ON GROUND HIT"));
-
 	DriveTrack();
 	ApplySidewaysForce();
 	CurrentThrottle = 0.f;
@@ -43,8 +39,7 @@ void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 void UTankTracks::SetThrottle(float Throttle)
 {
-	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
-	CurrentThrottle *= TurnMultiplier;
+	CurrentThrottle = TurnMultiplier * FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
 }
 
 void UTankTracks::DriveTrack()
@@ -53,4 +48,10 @@ void UTankTracks::DriveTrack()
 	FVector ForceLocation = GetComponentLocation();
 	UPrimitiveComponent* TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
+}
+
+void UTankTracks::SetTurnMultiplier(float Multiplier)
+{
+	TurnMultiplier = Multiplier;
+	UE_LOG(LogTemp, Warning, TEXT("Turn Multiplier: %f"), TurnMultiplier);
 }

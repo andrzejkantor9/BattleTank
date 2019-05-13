@@ -26,8 +26,8 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 		GetOwner()->GetVelocity().Y == 0.f
 		) { TurnMultiplier = 2.5f; }*/
 
-	LeftTrack->SetTurnMultiplier(10.f);
-	RightTrack->SetTurnMultiplier(10.f);
+	LeftTrack->SetTurnMultiplier(1.f);
+	RightTrack->SetTurnMultiplier(1.f);
 	LeftTrack->SetThrottle(Throw );
 	RightTrack->SetThrottle(-Throw);
 	

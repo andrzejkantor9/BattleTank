@@ -53,5 +53,5 @@ void UTankTracks::DriveTrack()
 void UTankTracks::SetTurnMultiplier(float Multiplier)
 {
 	TurnMultiplier = Multiplier;
-	UE_LOG(LogTemp, Warning, TEXT("Turn Multiplier: %f"), TurnMultiplier);
+	//UE_LOG(LogTemp, Warning, TEXT("Turn Multiplier: %f"), TurnMultiplier);
 }

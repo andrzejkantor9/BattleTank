@@ -34,7 +34,9 @@ void ATankPlayerControllerMain::AimTowardsCrosshair()
 	if (!ensure(TankAimingComponent)) { return; }
 
 	FVector HitLocation; //out parameter
-	if (GetSightRayHitLocation(HitLocation)) //has "side effect "- it is going to raytrace
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	UE_LOG(LogTemp, Warning, TEXT("bHasHitLocation: %i"), bGotHitLocation)
+	if (bGotHitLocation) //has "side effect "- it is going to raytrace
 	{
 		TankAimingComponent->AimAt(HitLocation);
 	}
@@ -53,8 +55,7 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		GetLookVectorHitLocation(LookDirection, OutHitLocation);
-		return true;
+		return GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
 	//raycast through the crosshair untill we hit terrain or limited by range of 9km

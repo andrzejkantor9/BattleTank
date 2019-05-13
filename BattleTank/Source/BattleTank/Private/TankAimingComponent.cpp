@@ -69,7 +69,15 @@ void UTankAimingComponent::RotateTurret(FVector AimDirection)
 	FRotator AimAsRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimAsRotator - TurretRotator;
 
-	Turret->Rotate(DeltaRotator.Yaw);
+	//always yaw the shortest way
+	if (FMath::Abs(DeltaRotator.Yaw )> 180.f)
+	{
+		Turret->Rotate(DeltaRotator.Yaw * -1.f);
+	}
+	else
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
 }
 
 bool UTankAimingComponent::IsBarrelMoving()
@@ -117,7 +125,8 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel)) {	return;	}
 	if(!ensure(ProjectileBlueprint)) { return; }
-	
+
+
 	if (FiringState !=EFiringState::Reloading)
 	{
 		//spawn the projectile at the socket location at the barrel

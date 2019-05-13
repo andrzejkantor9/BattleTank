@@ -32,6 +32,7 @@ public:
 		void Fire();
 
 	void AimAt(FVector HitLocation);
+	EFiringState GetFiringState() const;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
@@ -47,7 +48,7 @@ private:
 	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		float LaunchSpeed = 20000.f; //find sensible default
+		float LaunchSpeed = 4000.f; //find sensible default
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")

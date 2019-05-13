@@ -17,7 +17,7 @@ class BATTLETANK_API UTankTracks : public UStaticMeshComponent
 public:
 	//Set throttle between -1.0 and 1.0
 	UFUNCTION(BlueprintCallable, Category = "Input")
-		void SetThrottle(float Throttle);
+		void SetThrottle(float Throttle, float Multiplier, float ClampForward);
 
 	UTankTracks();
 
@@ -35,6 +35,6 @@ private:
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 
 	void DriveTrack();
-	float TurnMultiplier = 1.f;
+	float TurnMultiplier = 2.3f;
 	float CurrentThrottle = 0.f;
 };

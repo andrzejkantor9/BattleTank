@@ -8,28 +8,19 @@
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
-
-	LeftTrack->SetTurnMultiplier(1.f);
-	RightTrack->SetTurnMultiplier(1.f);
-	LeftTrack->SetThrottle(Throw);
-	RightTrack->SetThrottle(Throw);
+		
+	LeftTrack->SetThrottle(Throw, 1.f, 0.33f);//TODO decrease force when moving in straight line
+	RightTrack->SetThrottle(Throw, 1.f, .33f);
 
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
-	
-	//float TurnMultiplier = 1.5f; //TODO enable turning in place
-	/*if (GetOwner()->GetVelocity().X == 0.f 
-		&&
-		GetOwner()->GetVelocity().Y == 0.f
-		) { TurnMultiplier = 2.5f; }*/
 
-	LeftTrack->SetTurnMultiplier(1.f);
-	RightTrack->SetTurnMultiplier(1.f);
-	LeftTrack->SetThrottle(Throw );
-	RightTrack->SetThrottle(-Throw);
+	RightThrow = Throw;	
+	LeftTrack->SetThrottle(Throw, 2.3f, 1.f );
+	RightTrack->SetThrottle(-Throw, 2.3f, 1.f);
 	
 }
 
@@ -46,11 +37,11 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	FVector AIForwardIntention = MoveVelocity.GetSafeNormal();
 
-	float ForwardThrow = FVector::DotProduct(AIForwardIntention, TankForward);
-	IntendMoveForward(ForwardThrow);
+	float AIForwardThrow = FVector::DotProduct(AIForwardIntention, TankForward);
+	IntendMoveForward(AIForwardThrow);
 
-	float RightThrow = FVector::CrossProduct(AIForwardIntention, TankForward).Z;
-	IntendTurnRight(RightThrow);
-	
-//	UE_LOG(LogTemp, Warning, TEXT("Forward Throw: %f, Right Throw: %f."), ForwardThrow, RightThrow);
+	float AIRightThrow = FVector::CrossProduct(AIForwardIntention, TankForward).Z;
+	IntendTurnRight(AIRightThrow);
+
+	//UE_LOG(LogTemp, Warning, TEXT("Forward Throw: %f, Right Throw: %f."), ForwardThrow, RightThrow);
 }

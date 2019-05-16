@@ -78,7 +78,7 @@ void UTankAimingComponent::RotateTurret(FVector AimDirection)
 	{
 		Turret->Rotate(DeltaRotator.Yaw * -1.f);
 	}
-	else
+	else //avoid going the long way
 	{
 		Turret->Rotate(DeltaRotator.Yaw);
 	}

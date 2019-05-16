@@ -35,7 +35,7 @@ public:
 	void AimAt(FVector HitLocation);
 	EFiringState GetFiringState() const;
 	UFUNCTION(BlueprintCallable, Category = "Aiming")
-		int GetRoundsLeft() const;
+		int32 GetRoundsLeft() const;
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
 		EFiringState FiringState = EFiringState::Reloading;
@@ -54,12 +54,13 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		float ReloadTimeInSeconds = 3.f;
-	
+		float ReloadTimeInSeconds = .1f;
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		int32 RoundsLeft = 100;
+
 	UTankBarrel *Barrel = nullptr;
 	UTurret *Turret = nullptr;
 
 	double LastFireTime = 0.f;
 	FVector AimDirection;
-	int RoundsLeft = 3;
 };

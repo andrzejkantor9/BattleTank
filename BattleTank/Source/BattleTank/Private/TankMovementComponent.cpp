@@ -8,7 +8,7 @@
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
-	UE_LOG(LogTemp, Warning, TEXT("Forward Throw: %f."), Throw);
+	//UE_LOG(LogTemp, Warning, TEXT("Forward Throw: %f."), Throw);
 
 	LeftTrack->SetThrottle(Throw, 2.3f, 1.f);//TODO decrease force when moving in straight line
 	RightTrack->SetThrottle(Throw, 2.3f, 1.f);
@@ -18,7 +18,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
-	UE_LOG(LogTemp, Warning, TEXT("Right Throw: %f."), Throw);
+	//UE_LOG(LogTemp, Warning, TEXT("Right Throw: %f."), Throw);
 
 	//RightThrow = Throw;	
 	LeftTrack->SetThrottle(Throw, 2.3f, 2.3f);

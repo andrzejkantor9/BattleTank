@@ -23,6 +23,8 @@ protected:
 	UProjectileMovementComponent *ProjectileMovementComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Components")
+		UStaticMeshComponent *CollisionMesh = nullptr;
+	UPROPERTY(BlueprintReadOnly, Category = "Components")
 		UParticleSystemComponent *LaunchBlast = nullptr;
 	UPROPERTY(BlueprintReadOnly, Category = "Components")
 		UParticleSystemComponent *ImpactBlast = nullptr;
@@ -31,7 +33,7 @@ public:
 	void LaunchProjectile(float Speed);
 
 private:
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-		UStaticMeshComponent *CollisionMesh = nullptr;
+	UFUNCTION(BlueprintCallable)
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 
 };

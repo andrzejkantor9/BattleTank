@@ -7,6 +7,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/SceneComponent.h"
 #include "Engine/EngineTypes.h"
+#include "Components/SceneComponent.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -15,7 +16,7 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = false;
 
 	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
-	SetRootComponent(CollisionMesh);
+	//SetRootComponent(CollisionMesh);
 	CollisionMesh->SetNotifyRigidBodyCollision(true);
 	CollisionMesh->SetVisibility(true);
 
@@ -23,13 +24,22 @@ AProjectile::AProjectile()
 	ProjectileMovementComponent->bAutoActivate = false;
 	
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
+	//LaunchBlast->SetupAttachement(RootComponent);
 	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	LaunchBlast->bAutoActivate = true;
+	//LaunchBlast->bAutoActivate = true;
 	//TODO make it work (add weight to resolve issues?)
 	
 	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
+	//ImpactBlast->SetupAttachement(RootComponent);
 	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	ImpactBlast->bAutoActivate = false;
+	ImpactBlast->bAutoActivate = true;
+
+	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion"));
+	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	ExplosionForce->Radius = 500.f;
+	ExplosionForce->ImpulseStrength = 50000000000.f;
+	ExplosionForce->bIgnoreOwningActor = true;
+	//ExplosionForce->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -45,6 +55,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 {
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
+	ExplosionForce->FireImpulse();
+	CollisionMesh->DestroyComponent();
 }
 
 void AProjectile::LaunchProjectile(float Speed)

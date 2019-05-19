@@ -54,9 +54,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		float ReloadTimeInSeconds = .1f;
+		float ReloadTimeInSeconds = 2.f;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		int32 RoundsLeft = 100;
+		int32 RoundsLeft = 20;
 
 	UTankBarrel *Barrel = nullptr;
 	UTurret *Turret = nullptr;

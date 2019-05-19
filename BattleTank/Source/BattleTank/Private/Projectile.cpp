@@ -32,12 +32,12 @@ AProjectile::AProjectile()
 	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
 	//ImpactBlast->SetupAttachement(RootComponent);
 	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	ImpactBlast->bAutoActivate = true;
+	ImpactBlast->bAutoActivate = false;
 
 	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion"));
 	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ExplosionForce->Radius = 500.f;
-	ExplosionForce->ImpulseStrength = 50000000000.f;
+	ExplosionForce->ImpulseStrength = 650000000000.f;
 	ExplosionForce->bIgnoreOwningActor = true;
 	//ExplosionForce->SetupAttachment(RootComponent);
 }
@@ -56,7 +56,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
-	CollisionMesh->DestroyComponent();
+	//CollisionMesh->DestroyComponent();
 }
 
 void AProjectile::LaunchProjectile(float Speed)

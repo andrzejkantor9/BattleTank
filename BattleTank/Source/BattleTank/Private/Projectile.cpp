@@ -7,7 +7,9 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/SceneComponent.h"
 #include "Engine/EngineTypes.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/SceneComponent.h"
+#include "GameFramework/DamageType.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -36,7 +38,7 @@ AProjectile::AProjectile()
 
 	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion"));
 	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	ExplosionForce->Radius = 500.f;
+	ExplosionForce->Radius = 1000.f;
 	ExplosionForce->ImpulseStrength = 650000000000.f;
 	ExplosionForce->bIgnoreOwningActor = true;
 	//ExplosionForce->SetupAttachment(RootComponent);
@@ -57,6 +59,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
 	//CollisionMesh->DestroyComponent();
+
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		ProjectileDamage,
+		GetActorLocation(),
+		ExplosionForce->Radius, //for consistancy
+		UDamageType::StaticClass(),
+		TArray<AActor*>() //damage all actors 		
+	);
 }
 
 void AProjectile::LaunchProjectile(float Speed)

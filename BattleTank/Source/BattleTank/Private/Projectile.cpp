@@ -11,6 +11,8 @@
 #include "Components/SceneComponent.h"
 #include "GameFramework/DamageType.h"
 
+#include "ParticleDefinitions.h"
+
 // Sets default values
 AProjectile::AProjectile()
 {
@@ -18,9 +20,9 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = false;
 
 	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
-	//SetRootComponent(CollisionMesh);
+	SetRootComponent(CollisionMesh);
 	CollisionMesh->SetNotifyRigidBodyCollision(true);
-	CollisionMesh->SetVisibility(true);
+	CollisionMesh->SetVisibility(false);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement Component"));
 	ProjectileMovementComponent->bAutoActivate = false;
@@ -39,7 +41,7 @@ AProjectile::AProjectile()
 	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion"));
 	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ExplosionForce->Radius = 1000.f;
-	ExplosionForce->ImpulseStrength = 650000000000.f;
+	ExplosionForce->ImpulseStrength = 65000000000.f;
 	ExplosionForce->bIgnoreOwningActor = true;
 	//ExplosionForce->SetupAttachment(RootComponent);
 }

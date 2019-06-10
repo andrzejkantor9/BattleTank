@@ -5,6 +5,10 @@
 #include "GameFramework/Actor.h"
 #include "Math/UnrealMathUtility.h"
 #include "Windows/WindowsPlatformMath.h"
+float ATank::GetHealthPercent() const
+{
+	return (float)CurrentHealth / (float)StartingHealth;
+}
 // Sets default values
 ATank::ATank()
 {
@@ -21,7 +25,7 @@ float ATank::TakeDamage
 )
 {
 	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
-	float ToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	//float ToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	int32 DamageToApply = FMath::Clamp<int32>(DamageAmount, 0, CurrentHealth);
 
 	CurrentHealth -= DamageToApply;

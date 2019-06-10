@@ -71,8 +71,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		TArray<AActor*>() //damage all actors 		
 	);
 
-	UE_LOG(LogTemp, Warning, TEXT("Entered 1"));
-
 	FTimerHandle Timer;
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
 }

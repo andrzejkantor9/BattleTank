@@ -20,6 +20,10 @@ public:
 		AActor * DamageCauser
 	) override;
 
+	//Return current health as a procentage of starting health, between 0 and 1
+	UFUNCTION(BlueprintPure, Category = "Healt")
+		float GetHealthPercent() const;
+
 private:
 	ATank();
 

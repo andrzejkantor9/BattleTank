@@ -12,6 +12,9 @@
 #include "GameFramework/DamageType.h"
 
 #include "ParticleDefinitions.h"
+#include "GameFramework/Actor.h"
+#include "Math/UnrealMathUtility.h"
+#include "Windows/WindowsPlatformMath.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -28,13 +31,10 @@ AProjectile::AProjectile()
 	ProjectileMovementComponent->bAutoActivate = false;
 	
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
-	//LaunchBlast->SetupAttachement(RootComponent);
 	LaunchBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	//LaunchBlast->bAutoActivate = true;
-	//TODO make it work (add weight to resolve issues?)
+	//LaunchBlast->bAutoActivate = true
 	
 	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
-	//ImpactBlast->SetupAttachement(RootComponent);
 	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ImpactBlast->bAutoActivate = false;
 
@@ -43,7 +43,6 @@ AProjectile::AProjectile()
 	ExplosionForce->Radius = 1000.f;
 	ExplosionForce->ImpulseStrength = 65000000000.f;
 	ExplosionForce->bIgnoreOwningActor = true;
-	//ExplosionForce->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -57,10 +56,11 @@ void AProjectile::BeginPlay()
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
-	//CollisionMesh->DestroyComponent();
 
 	UGameplayStatics::ApplyRadialDamage(
 		this,
@@ -70,7 +70,17 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 		UDamageType::StaticClass(),
 		TArray<AActor*>() //damage all actors 		
 	);
+
+	UE_LOG(LogTemp, Warning, TEXT("Entered 1"));
+
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
 }
+
+void AProjectile::OnTimerExpire()
+{
+	Destroy();
+} 		 
 
 void AProjectile::LaunchProjectile(float Speed)
 {

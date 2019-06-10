@@ -2,6 +2,9 @@
 
 #include "Tank.h"
 
+#include "GameFramework/Actor.h"
+#include "Math/UnrealMathUtility.h"
+#include "Windows/WindowsPlatformMath.h"
 // Sets default values
 ATank::ATank()
 {
@@ -18,6 +21,7 @@ float ATank::TakeDamage
 )
 {
 	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
+	float ToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	int32 DamageToApply = FMath::Clamp<int32>(DamageAmount, 0, CurrentHealth);
 
 	CurrentHealth -= DamageToApply;

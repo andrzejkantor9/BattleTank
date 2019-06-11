@@ -3,6 +3,7 @@
 #include "TankAiController.h"
 
 #include "TankAimingComponent.h"
+#include "Tank.h" //So we can implement OnDeath
 
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
@@ -34,5 +35,24 @@ void ATankAiController::Tick(float DeltaTime)
 	if (TankAimingComponent->GetFiringState() == EFiringState::Locked)
 	{
 		TankAimingComponent->Fire();
+	}
+}
+
+void ATankAiController::OnPossesedTankDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Tank has recieved OnDeath BroadCast!"));
+}
+
+void ATankAiController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+
+	if (InPawn)
+	{
+		ATank* PossesedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossesedTank)) { return; }
+
+		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankAiController::OnPossesedTankDeath );
+		//TODO Subscribe our local method to the tank's death event
 	}
 }

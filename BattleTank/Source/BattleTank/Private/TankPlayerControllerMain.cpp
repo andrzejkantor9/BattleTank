@@ -4,12 +4,32 @@
 #include "BattleTank.h"
 
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
+
+void ATankPlayerControllerMain::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+
+	if (InPawn)
+	{
+		ATank* PossesedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossesedTank)) { return; }
+
+		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerControllerMain::OnPossesedTankDeath);
+		//TODO Subscribe our local method to the tank's death event
+	}
+}
+
+void ATankPlayerControllerMain::OnPossesedTankDeath()
+{
+	StartSpectatingOnly();
+}
 
 void ATankPlayerControllerMain::BeginPlay()
 {
@@ -34,7 +54,7 @@ void ATankPlayerControllerMain::AimTowardsCrosshair()
 	if (!ensure(TankAimingComponent)) { return; }
 
 	FVector HitLocation; //out parameter
-	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	bool bGotHitLocation = bGotSightRayHitLocation(HitLocation);
 	if (bGotHitLocation) //has "side effect "- it is going to raytrace
 	{
 		TankAimingComponent->AimAt(HitLocation);
@@ -42,7 +62,7 @@ void ATankPlayerControllerMain::AimTowardsCrosshair()
 }
 
 //out parameters can be changed in const methods
-bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) const
+bool ATankPlayerControllerMain::bGotSightRayHitLocation(FVector &OutHitLocation) const
 {
 	//find the crosshair position
 	//"de-project" the screen position of the crosshair to a world direction
@@ -52,9 +72,9 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 	FVector2D ScreenLocation = FVector2D((StaticCast<float>(ViewportSizeX) * CrosshairXLocation), (StaticCast<float>(ViewportSizeY) * CrosshairYLocation));
 
 	FVector LookDirection;
-	if (GetLookDirection(ScreenLocation, LookDirection))
+	if (bGotLookDirection(ScreenLocation, LookDirection))
 	{
-		return GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		return bGotLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
 	//raycast through the crosshair untill we hit terrain or limited by range of 9km
@@ -67,17 +87,17 @@ bool ATankPlayerControllerMain::GetSightRayHitLocation(FVector &OutHitLocation) 
 	return false;
 }
 
-bool ATankPlayerControllerMain::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+bool ATankPlayerControllerMain::bGotLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
 {
 	FVector CameraWorldLocation; //to be disbanded
 	return DeprojectScreenPositionToWorld(
 		ScreenLocation.X, 
 		ScreenLocation.Y, 
 		CameraWorldLocation, 
-		LookDirection);
+		OutLookDirection);
 }
 
-bool ATankPlayerControllerMain::GetLookVectorHitLocation(FVector LookDirection, FVector &HitLocation) const
+bool ATankPlayerControllerMain::bGotLookVectorHitLocation(FVector LookDirection, FVector &OutHitLocation) const
 {
 	FHitResult HitResult;
 	FVector LineTraceStart = PlayerCameraManager->GetCameraLocation(); 
@@ -90,10 +110,11 @@ bool ATankPlayerControllerMain::GetLookVectorHitLocation(FVector LookDirection, 
 			ECollisionChannel::ECC_Visibility)
 		)
 	{
-		HitLocation = HitResult.Location;
+		OutHitLocation = HitResult.Location;
 		//DrawDebugLine(GetWorld(), LineTraceStart, HitLocation, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 		return true;
 	}
-	HitLocation = FVector(0.f);
+	OutHitLocation = FVector(0.f);
 	return false;
 }
+

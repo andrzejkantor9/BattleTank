@@ -54,7 +54,7 @@ void AProjectile::BeginPlay()
 	
 }
 
-void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& OutHit)
 {
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();

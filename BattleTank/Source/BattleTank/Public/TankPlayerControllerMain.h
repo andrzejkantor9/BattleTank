@@ -18,6 +18,9 @@ class BATTLETANK_API ATankPlayerControllerMain : public APlayerController
 	
 public:
 	virtual void BeginPlay() override;
+	void SetPawn(APawn * InPawn);
+	UFUNCTION()
+		void OnPossesedTankDeath();
 	virtual void Tick(float) override;
 
 protected:
@@ -42,7 +45,7 @@ private:
 	//start the tank aiming the barrel towards crosshair so that a shoot would hit
 	//where the corsshair intersects the world
 	void AimTowardsCrosshair();
-	bool GetSightRayHitLocation(FVector &) const;
-	bool GetLookDirection(FVector2D, FVector&) const;
-	bool GetLookVectorHitLocation(FVector, FVector&) const;
+	bool bGotSightRayHitLocation(FVector &) const;
+	bool bGotLookDirection(FVector2D, FVector&) const;
+	bool bGotLookVectorHitLocation(FVector, FVector&) const;
 };

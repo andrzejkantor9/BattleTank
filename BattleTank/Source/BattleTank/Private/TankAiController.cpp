@@ -8,7 +8,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
-#include "GameFramework/PlayerController.h"
+#include "GameFramework/PlayerController.h" 
 #include "AIController.h"
 //Depends on movement component via pathfinding system
 
@@ -41,6 +41,9 @@ void ATankAiController::Tick(float DeltaTime)
 void ATankAiController::OnPossesedTankDeath()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Tank has recieved OnDeath BroadCast!"));
+
+	if (!ensure(GetPawn())) { return; }//TODO remove ensure
+	GetPawn()->DetachFromControllerPendingDestroy();
 }
 
 void ATankAiController::SetPawn(APawn * InPawn)

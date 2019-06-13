@@ -30,7 +30,7 @@ void UTankTracks::ApplySidewaysForce()
 	TankRoot->AddForce(CorrectionOfForce);
 }
 
-void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+void UTankTracks::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& OutHit)
 {
 	DriveTrack();
 	ApplySidewaysForce();

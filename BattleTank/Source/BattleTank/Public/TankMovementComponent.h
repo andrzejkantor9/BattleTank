@@ -31,5 +31,5 @@ private:
 	float ForwardThrow = 0.f;
 	float RightThrow = 0.f;
 
-	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+	virtual void RequestDirectMove(const FVector& OutMoveVelocity, bool bForceMaxSpeed) override;
 };

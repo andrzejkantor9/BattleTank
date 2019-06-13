@@ -47,7 +47,7 @@ private:
 
 	void MoveBarrelTowards(FVector AimDirection);
 	void RotateTurret(FVector AimDirection);
-	bool IsBarrelMoving();
+	bool bIsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 8000.f; //find sensible default

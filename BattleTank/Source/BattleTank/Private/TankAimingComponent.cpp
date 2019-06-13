@@ -47,7 +47,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	{
 		FiringState = EFiringState::Reloading; 
 	}
-	else if (IsBarrelMoving())
+	else if (bIsBarrelMoving())
 	{
 		FiringState = EFiringState::Aiming;
 	}
@@ -86,7 +86,7 @@ void UTankAimingComponent::RotateTurret(FVector AimDirection)
 	}
 }
 
-bool UTankAimingComponent::IsBarrelMoving()
+bool UTankAimingComponent::bIsBarrelMoving()
 {
 	if (!ensure(Barrel)) { return false; } // only use ensure if the failure should never happen, otherwise handle the error
 
@@ -107,7 +107,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	FVector OutLaunchVelocity(0.f); 
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
-	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
+	bool bHasAimSolution = UGameplayStatics::SuggestProjectileVelocity
 	(
 		this,
 		OutLaunchVelocity,
@@ -119,7 +119,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 
-	if (bHaveAimSolution)
+	if (bHasAimSolution)
 	{
 		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);

@@ -11,6 +11,7 @@ UTankTracks::UTankTracks()
 void UTankTracks::BeginPlay()
 {
 	Super::BeginPlay();
+
 	OnComponentHit.AddDynamic(this, &UTankTracks::OnHit);
 }
 

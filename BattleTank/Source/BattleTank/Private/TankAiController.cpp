@@ -23,7 +23,7 @@ void ATankAiController::Tick(float DeltaTime)
 	APawn* PlayerTank = (GetWorld()->GetFirstPlayerController()->GetPawn());
 	APawn* ControlledTank = GetPawn();
 
-	if (!ensure(PlayerTank && ControlledTank)) { return; }
+	if (!(PlayerTank && ControlledTank)) { return; }
 	// move towards player
 	MoveToActor(PlayerTank, AcceptanceRadius);//TODO find out if the unit is in cm
 

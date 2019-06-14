@@ -69,10 +69,10 @@ bool ATankPlayerControllerMain::bGotSightRayHitLocation(FVector &OutHitLocation)
 	//line-trace along that look direction and see what we hit (up to max range)
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
-	FVector2D ScreenLocation = FVector2D((StaticCast<float>(ViewportSizeX) * CrosshairXLocation), (StaticCast<float>(ViewportSizeY) * CrosshairYLocation));
+	FVector2D TargetScreenLocation = FVector2D((StaticCast<float>(ViewportSizeX) * CrosshairXLocation), (StaticCast<float>(ViewportSizeY) * CrosshairYLocation));
 
 	FVector LookDirection;
-	if (bGotLookDirection(ScreenLocation, LookDirection))
+	if (bGotLookDirection(TargetScreenLocation, LookDirection))
 	{
 		return bGotLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
@@ -87,12 +87,12 @@ bool ATankPlayerControllerMain::bGotSightRayHitLocation(FVector &OutHitLocation)
 	return false;
 }
 
-bool ATankPlayerControllerMain::bGotLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
+bool ATankPlayerControllerMain::bGotLookDirection(FVector2D TargetScreenLocation, FVector& OutLookDirection) const
 {
 	FVector CameraWorldLocation; //to be disbanded
 	return DeprojectScreenPositionToWorld(
-		ScreenLocation.X, 
-		ScreenLocation.Y, 
+		TargetScreenLocation.X, 
+		TargetScreenLocation.Y, 
 		CameraWorldLocation, 
 		OutLookDirection);
 }

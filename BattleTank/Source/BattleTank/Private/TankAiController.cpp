@@ -42,7 +42,7 @@ void ATankAiController::OnPossesedTankDeath()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Tank has recieved OnDeath BroadCast!"));
 
-	if (!ensure(GetPawn())) { return; }//TODO remove ensure
+	if (!ensure(GetPawn())) { return; }
 	GetPawn()->DetachFromControllerPendingDestroy();
 }
 
@@ -53,7 +53,7 @@ void ATankAiController::SetPawn(APawn * InPawn)
 	if (InPawn)
 	{
 		ATank* PossesedTank = Cast<ATank>(InPawn);
-		if (!ensure(PossesedTank)) { return; }
+		if (!PossesedTank) { return; }
 
 		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankAiController::OnPossesedTankDeath );
 		//TODO Subscribe our local method to the tank's death event

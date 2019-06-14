@@ -45,8 +45,8 @@ private:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	virtual void BeginPlay() override;
 
-	void MoveBarrelTowards(FVector AimDirection);
-	void RotateTurret(FVector AimDirection);
+	void MoveBarrelTowards(FVector TargetAimDirection);
+	void RotateTurret(FVector TargetAimDirection);
 	bool bIsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")

@@ -4,6 +4,7 @@
 #include "SprungWheel.h"
 
 #include "Components/PrimitiveComponent.h"
+#include "GameFramework/Actor.h"
 
 // Sets default values
 ASprungWheel::ASprungWheel()
@@ -11,8 +12,11 @@ ASprungWheel::ASprungWheel()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Mass Wheel Constraint"));
+	SetRootComponent(MassWheelConstraint);
+
 	Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
-	SetRootComponent(Mass);
+	Mass->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Mass->SetNotifyRigidBodyCollision(true);
 	Mass->SetVisibility(true);
 
@@ -20,9 +24,6 @@ ASprungWheel::ASprungWheel()
 	Wheel->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Wheel->SetNotifyRigidBodyCollision(true);
 	Wheel->SetVisibility(true);
-
-	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Mass Wheel Constraint"));
-	MassWheelConstraint->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	Mass->SetSimulatePhysics(true);
 	Mass->SetEnableGravity(true);
@@ -43,7 +44,16 @@ ASprungWheel::ASprungWheel()
 void ASprungWheel::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (!GetAttachParentActor() )
+	{
+		UE_LOG(LogTemp, Warning, TEXT("NULL"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("NOT NULL"));
+	}
+	//AttachToComponent();
 }
 
 // Called every frame

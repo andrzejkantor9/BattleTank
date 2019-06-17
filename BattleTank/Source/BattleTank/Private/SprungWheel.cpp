@@ -18,12 +18,12 @@ ASprungWheel::ASprungWheel()
 	Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
 	Mass->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Mass->SetNotifyRigidBodyCollision(true);
-	Mass->SetVisibility(true);
+	Mass->SetVisibility(false);
 
 	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
 	Wheel->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Wheel->SetNotifyRigidBodyCollision(true);
-	Wheel->SetVisibility(true);
+	Wheel->SetVisibility(false);
 
 	Mass->SetSimulatePhysics(true);
 	Mass->SetEnableGravity(true);
@@ -51,7 +51,7 @@ void ASprungWheel::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("NOT NULL"));
+		UE_LOG(LogTemp, Warning, TEXT("NOT NULL: %s"), *GetAttachParentActor()->GetName());
 	}
 	//AttachToComponent();
 }

@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
+#include "Components/SphereComponent.h"
 
 #include "SprungWheel.generated.h"
 
@@ -23,9 +24,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-		UStaticMeshComponent *Wheel= nullptr;
+		USphereComponent *Wheel= nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+		USphereComponent *Axle = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UPhysicsConstraintComponent *MassWheelConstraint = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+		UPhysicsConstraintComponent *AxleWheelConstraint = nullptr;
 
 private:
 	void SetupConstraint();

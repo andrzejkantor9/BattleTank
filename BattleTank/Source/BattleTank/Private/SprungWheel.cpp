@@ -5,6 +5,7 @@
 
 #include "Components/PrimitiveComponent.h"
 #include "GameFramework/Actor.h"
+#include "Components/SceneComponent.h"
 
 // Sets default values
 ASprungWheel::ASprungWheel()
@@ -15,14 +16,28 @@ ASprungWheel::ASprungWheel()
 	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Mass Wheel Constraint"));
 	SetRootComponent(MassWheelConstraint);
 
-	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
-	Wheel->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	Axle = CreateDefaultSubobject<USphereComponent>(FName("Axle"));
+	Axle->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	Axle->SetNotifyRigidBodyCollision(true);
+	Axle->SetVisibility(true);
+
+	Axle->SetSimulatePhysics(true);
+	Axle->SetEnableGravity(true);
+	Axle->SetMassOverrideInKg(NAME_None, 400000.f, true);
+
+	Wheel = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
+	//Wheel->AttachToComponent(Axle, FAttachmentTransformRules::KeepRelativeTransform);
+	Wheel->SetupAttachment(Axle);
 	Wheel->SetNotifyRigidBodyCollision(true);
 	Wheel->SetVisibility(true);
 
 	Wheel->SetSimulatePhysics(true);
 	Wheel->SetEnableGravity(true);
 	Wheel->SetMassOverrideInKg(NAME_None, 400000.f, true);
+
+	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("AxleWheelConstraint"));
+	//AxleWheelConstraint->AttachToComponent(Axle, FAttachmentTransformRules::KeepRelativeTransform);
+	AxleWheelConstraint->SetupAttachment(Axle);
 
 	MassWheelConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Free, 1.f);
 	MassWheelConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 1.f);
@@ -49,7 +64,8 @@ void ASprungWheel::SetupConstraint()
 	if (!GetAttachParentActor()) { return; }
 	UPrimitiveComponent* BodyRoot = Cast<UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
 	if (!BodyRoot) { return; }
-	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Wheel, NAME_None);
+	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Axle, NAME_None);
+	AxleWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
 }
 
 // Called every frame

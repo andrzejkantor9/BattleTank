@@ -23,11 +23,12 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-		UStaticMeshComponent *Mass= nullptr;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UStaticMeshComponent *Wheel= nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UPhysicsConstraintComponent *MassWheelConstraint = nullptr;
+
+private:
+	void SetupConstraint();
 
 public:	
 	// Called every frame

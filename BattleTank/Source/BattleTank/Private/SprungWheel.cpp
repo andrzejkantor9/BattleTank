@@ -15,22 +15,14 @@ ASprungWheel::ASprungWheel()
 	MassWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Mass Wheel Constraint"));
 	SetRootComponent(MassWheelConstraint);
 
-	Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
-	Mass->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	Mass->SetNotifyRigidBodyCollision(true);
-	Mass->SetVisibility(false);
-
 	Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
 	Wheel->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	Wheel->SetNotifyRigidBodyCollision(true);
-	Wheel->SetVisibility(false);
+	Wheel->SetVisibility(true);
 
-	Mass->SetSimulatePhysics(true);
-	Mass->SetEnableGravity(true);
-	Mass->SetMassOverrideInKg(NAME_None, 100.f, true);
 	Wheel->SetSimulatePhysics(true);
 	Wheel->SetEnableGravity(true);
-	Wheel->SetMassOverrideInKg(NAME_None, 1.f, true);
+	Wheel->SetMassOverrideInKg(NAME_None, 400000.f, true);
 
 	MassWheelConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Free, 1.f);
 	MassWheelConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 1.f);
@@ -38,6 +30,8 @@ ASprungWheel::ASprungWheel()
 	MassWheelConstraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 1.f);
 	MassWheelConstraint->SetLinearPositionDrive(false, false, true);
 	MassWheelConstraint->SetLinearVelocityDrive(false, false, true);
+
+	//MassWheelConstraint->SetConstrainedComponents(Cast<UPrimitiveComponent>(GetAttachParentActor()), NAME_None, Cast<UPrimitiveComponent>(Wheel), NAME_None);
 }
 
 // Called when the game starts or when spawned
@@ -45,15 +39,17 @@ void ASprungWheel::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (!GetAttachParentActor() )
-	{
-		UE_LOG(LogTemp, Warning, TEXT("NULL"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("NOT NULL: %s"), *GetAttachParentActor()->GetName());
-	}
+	SetupConstraint();
+
 	//AttachToComponent();
+}
+
+void ASprungWheel::SetupConstraint()
+{
+	if (!GetAttachParentActor()) { return; }
+	UPrimitiveComponent* BodyRoot = Cast<UPrimitiveComponent>(GetAttachParentActor()->GetRootComponent());
+	if (!BodyRoot) { return; }
+	MassWheelConstraint->SetConstrainedComponents(BodyRoot, NAME_None, Wheel, NAME_None);
 }
 
 // Called every frame

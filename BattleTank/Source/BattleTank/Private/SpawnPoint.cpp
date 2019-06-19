@@ -3,6 +3,8 @@
 
 #include "SpawnPoint.h"
 
+#include "SprungWheel.h"
+
 #include "GameFramework/Actor.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
@@ -23,10 +25,10 @@ void USpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AActor* NewActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
-	if (!NewActor) { return; }
-	NewActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
-	UGameplayStatics::FinishSpawningActor(NewActor, GetComponentTransform());
+	SpawnedActor= GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
+	if (!SpawnedActor) { return; }
+	SpawnedActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+	UGameplayStatics::FinishSpawningActor(SpawnedActor, GetComponentTransform());
 }
 
 
@@ -37,4 +39,15 @@ void USpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 
 	// ...
 }
+/*
+AActor* USpawnPoint::GetSpawnedActor() const
+{
+	TArray<USceneComponent*> ChildWheel;
+	GetChildrenComponents(false, ChildWheel);
 
+	
+	ASprungWheel* ReturnChildWheel = Cast<ASprungWheel>(ChildWheel[0]);
+
+	return ReturnChildWheel;
+}
+*/

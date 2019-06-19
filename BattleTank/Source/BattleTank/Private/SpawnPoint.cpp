@@ -19,7 +19,6 @@ USpawnPoint::USpawnPoint()
 	// ...
 }
 
-
 // Called when the game starts
 void USpawnPoint::BeginPlay()
 {
@@ -37,17 +36,4 @@ void USpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 }
-/*
-AActor* USpawnPoint::GetSpawnedActor() const
-{
-	TArray<USceneComponent*> ChildWheel;
-	GetChildrenComponents(false, ChildWheel);
-
-	
-	ASprungWheel* ReturnChildWheel = Cast<ASprungWheel>(ChildWheel[0]);
-
-	return ReturnChildWheel;
-}
-*/

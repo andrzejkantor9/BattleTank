@@ -25,33 +25,6 @@ ASprungWheel::ASprungWheel()
 
 	AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("AxleWheelConstraint"));
 	AxleWheelConstraint->SetupAttachment(Axle);
-
-	//Axle->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	//Axle->SetNotifyRigidBodyCollision(true);
-	//Axle->SetVisibility(true);
-
-	//Axle->SetSimulatePhysics(true);
-	//Axle->SetEnableGravity(true);
-	//Axle->SetMassOverrideInKg(NAME_None, 400000.f, true);
-
-	//Wheel->AttachToComponent(Axle, FAttachmentTransformRules::KeepRelativeTransform);
-	//Wheel->SetNotifyRigidBodyCollision(true);
-	//Wheel->SetVisibility(true);
-
-	//Wheel->SetSimulatePhysics(true);
-	//Wheel->SetEnableGravity(true);
-	//Wheel->SetMassOverrideInKg(NAME_None, 400000.f, true);
-
-	//AxleWheelConstraint->AttachToComponent(Axle, FAttachmentTransformRules::KeepRelativeTransform);
-
-	//MassWheelConstraint->SetLinearZLimit(ELinearConstraintMotion::LCM_Free, 1.f);
-	//MassWheelConstraint->SetAngularTwistLimit(EAngularConstraintMotion::ACM_Locked, 1.f);
-	//MassWheelConstraint->SetAngularSwing1Limit(EAngularConstraintMotion::ACM_Locked, 1.f);
-	//MassWheelConstraint->SetAngularSwing2Limit(EAngularConstraintMotion::ACM_Locked, 1.f);
-	//MassWheelConstraint->SetLinearPositionDrive(false, false, true);
-	//MassWheelConstraint->SetLinearVelocityDrive(false, false, true);
-
-	//MassWheelConstraint->SetConstrainedComponents(Cast<UPrimitiveComponent>(GetAttachParentActor()), NAME_None, Cast<UPrimitiveComponent>(Wheel), NAME_None);
 }
 
 // Called when the game starts or when spawned
@@ -117,6 +90,5 @@ void ASprungWheel::AddDrivingForce(float ForceMagnitude)
 
 void ASprungWheel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("OnHit: %f"), GetWorld()->GetTimeSeconds());
 	ApplyForce();
 }

@@ -16,7 +16,7 @@ enum class EFiringState : uint8
 	OutOfAmmo
 };
 
-class UTankBarrel; //Forward declaration
+class UTankBarrel;
 class UTurret;
 class AProjectile;
 

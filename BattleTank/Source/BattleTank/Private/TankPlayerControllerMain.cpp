@@ -22,7 +22,6 @@ void ATankPlayerControllerMain::SetPawn(APawn * InPawn)
 		if (!ensure(PossesedTank)) { return; }
 
 		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerControllerMain::OnPossesedTankDeath);
-		//TODO Subscribe our local method to the tank's death event
 	}
 }
 
@@ -69,9 +68,6 @@ void ATankPlayerControllerMain::AimTowardsCrosshair()
 //out parameters can be changed in const methods
 bool ATankPlayerControllerMain::bGotSightRayHitLocation(FVector &OutHitLocation) const
 {
-	//find the crosshair position
-	//"de-project" the screen position of the crosshair to a world direction
-	//line-trace along that look direction and see what we hit (up to max range)
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	FVector2D TargetScreenLocation = FVector2D((StaticCast<float>(ViewportSizeX) * CrosshairXLocation), (StaticCast<float>(ViewportSizeY) * CrosshairYLocation));
@@ -81,12 +77,6 @@ bool ATankPlayerControllerMain::bGotSightRayHitLocation(FVector &OutHitLocation)
 	{
 		return bGotLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
-
-	//raycast through the crosshair untill we hit terrain or limited by range of 9km
-	//get the object we hit or information thet we didnt hit anything
-	//if we hit the terrain
-		//set outhitlocation at point where ray is hitting 
-		//return true
 
 	OutHitLocation = FVector(1.f);
 	return false;

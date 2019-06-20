@@ -56,6 +56,5 @@ void ATankAiController::SetPawn(APawn * InPawn)
 		if (!PossesedTank) { return; }
 
 		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankAiController::OnPossesedTankDeath );
-		//TODO Subscribe our local method to the tank's death event
 	}
 }

@@ -24,11 +24,11 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	//Config
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup")
+		TSubclassOf<AActor> SpawnClass;
 
 private:
-	//Config
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		TSubclassOf<AActor> SpawnClass;
 
 	UPROPERTY()
 		AActor *SpawnedActor;

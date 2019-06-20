@@ -39,6 +39,9 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
 		EFiringState FiringState = EFiringState::Reloading;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup")
+		TSubclassOf<AProjectile> ProjectileBlueprint;
+
 private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
@@ -51,8 +54,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 8000.f; //find sensible default
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		TSubclassOf<AProjectile> ProjectileBlueprint;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float ReloadTimeInSeconds = 2.f;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")

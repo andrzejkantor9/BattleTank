@@ -41,7 +41,7 @@ AProjectile::AProjectile()
 	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion"));
 	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ExplosionForce->Radius = 1000.f;
-	ExplosionForce->ImpulseStrength = 65000000000.f;
+	ExplosionForce->ImpulseStrength = 20000000000.f;
 	ExplosionForce->bIgnoreOwningActor = true;
 }
 

@@ -35,6 +35,11 @@ void ATankPlayerControllerMain::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (!GetPawn())
+	{
+		UE_LOG(LogTemp, Error, TEXT("ATankPlayerControllerMain failed to GetPawn() in BeginPlay()."));
+		return;
+	}
 	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(TankAimingComponent)) { return; }
 	FoundAimingComponent(TankAimingComponent);

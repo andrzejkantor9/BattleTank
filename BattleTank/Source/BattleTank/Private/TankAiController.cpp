@@ -40,12 +40,10 @@ void ATankAiController::Tick(float DeltaTime)
 
 void ATankAiController::OnPossesedTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tank has recieved OnDeath BroadCast!"));
-
 	if (!ensure(GetPawn())) { return; }
 	GetPawn()->DetachFromControllerPendingDestroy();
 	ATank* PossesedTank = Cast<ATank>(ControlledTank);
-	PossesedTank->SetDead(true);
+	PossesedTank->TankDeathExplosion();
 }
 
 void ATankAiController::SetPawn(APawn * InPawn)

@@ -5,10 +5,6 @@
 #include "GameFramework/Actor.h"
 #include "Math/UnrealMathUtility.h"
 #include "Windows/WindowsPlatformMath.h"
-void ATank::SetDead(bool bIsDead)
-{
-	bDead = bIsDead;
-}
 
 float ATank::GetHealthPercent() const
 {

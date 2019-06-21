@@ -28,7 +28,7 @@ void ATankPlayerControllerMain::SetPawn(APawn * InPawn)
 void ATankPlayerControllerMain::OnPossesedTankDeath()
 {
 	StartSpectatingOnly();
-	PossesedTank->SetDead(true);
+	PossesedTank->TankDeathExplosion();
 }
 
 void ATankPlayerControllerMain::BeginPlay()

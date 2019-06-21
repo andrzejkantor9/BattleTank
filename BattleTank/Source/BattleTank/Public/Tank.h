@@ -21,17 +21,14 @@ public:
 		class AController * EventInstigator, 
 		AActor * DamageCauser
 	) override;
-	void SetDead(bool bIsDead);
 
 	//Return current health as a procentage of starting health, between 0 and 1
 	UFUNCTION(BlueprintPure, Category = "Healt")
 		float GetHealthPercent() const;
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
+		void TankDeathExplosion();
 
 	FTankDelegate OnDeath;
-
-protected:
-	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
-		bool bDead = false;
 
 private:
 	ATank();

@@ -21,7 +21,7 @@ void ATankAiController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	APawn* PlayerTank = (GetWorld()->GetFirstPlayerController()->GetPawn());
-	APawn* ControlledTank = GetPawn();
+	ControlledTank = GetPawn();
 
 	if (!(PlayerTank && ControlledTank)) { return; }
 	// move towards player
@@ -44,6 +44,8 @@ void ATankAiController::OnPossesedTankDeath()
 
 	if (!ensure(GetPawn())) { return; }
 	GetPawn()->DetachFromControllerPendingDestroy();
+	ATank* PossesedTank = Cast<ATank>(ControlledTank);
+	PossesedTank->SetDead(true);
 }
 
 void ATankAiController::SetPawn(APawn * InPawn)

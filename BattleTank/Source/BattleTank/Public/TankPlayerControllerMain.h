@@ -7,6 +7,7 @@
 #include "TankPlayerControllerMain.generated.h"
 
 class UTankAimingComponent;
+class ATank;
 
 /**
 *Responsible for helping the player aim.
@@ -48,4 +49,5 @@ private:
 	bool bGotSightRayHitLocation(FVector &) const;
 	bool bGotLookDirection(FVector2D, FVector&) const;
 	bool bGotLookVectorHitLocation(FVector, FVector&) const;
+	ATank* PossesedTank;
 };

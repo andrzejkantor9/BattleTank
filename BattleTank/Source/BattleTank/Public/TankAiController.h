@@ -21,9 +21,12 @@ protected:
 	//How close can the AI tank get to the player
 	UPROPERTY(EditDefaultsOnly, Category = "Setup") 
 		float AcceptanceRadius = 8000.f;
+	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
+		bool bIsDead = false;
 
 private:
 	virtual void SetPawn(APawn *InPawn) override;
+	APawn* ControlledTank;
 
 	UFUNCTION()
 		void OnPossesedTankDeath();

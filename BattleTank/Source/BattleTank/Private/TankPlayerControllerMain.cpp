@@ -18,7 +18,7 @@ void ATankPlayerControllerMain::SetPawn(APawn * InPawn)
 
 	if (InPawn)
 	{
-		ATank* PossesedTank = Cast<ATank>(InPawn);
+		PossesedTank = Cast<ATank>(InPawn);
 		if (!ensure(PossesedTank)) { return; }
 
 		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerControllerMain::OnPossesedTankDeath);
@@ -28,6 +28,7 @@ void ATankPlayerControllerMain::SetPawn(APawn * InPawn)
 void ATankPlayerControllerMain::OnPossesedTankDeath()
 {
 	StartSpectatingOnly();
+	PossesedTank->SetDead(true);
 }
 
 void ATankPlayerControllerMain::BeginPlay()

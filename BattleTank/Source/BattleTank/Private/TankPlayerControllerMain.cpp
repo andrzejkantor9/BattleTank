@@ -28,6 +28,7 @@ void ATankPlayerControllerMain::SetPawn(APawn * InPawn)
 void ATankPlayerControllerMain::OnPossesedTankDeath()
 {
 	StartSpectatingOnly();
+	PossesedTank->RemovePlayerUI();
 	PossesedTank->TankDeathExplosion();
 }
 

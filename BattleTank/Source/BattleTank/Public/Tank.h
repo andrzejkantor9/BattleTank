@@ -27,6 +27,8 @@ public:
 		float GetHealthPercent() const;
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
 		void TankDeathExplosion();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
+		void RemovePlayerUI();
 	void SetAiHealth();
 
 	FTankDelegate OnDeath;

@@ -7,6 +7,7 @@
 #include "TankAiController.generated.h"
 
 class UTankAimingComponent;
+class ATank;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API ATankAiController : public AAIController
@@ -27,6 +28,7 @@ protected:
 private:
 	virtual void SetPawn(APawn *InPawn) override;
 	APawn* ControlledTank;
+	ATank* PossesedTank;
 
 	UFUNCTION()
 		void OnPossesedTankDeath();

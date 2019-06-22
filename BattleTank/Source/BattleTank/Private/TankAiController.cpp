@@ -15,6 +15,8 @@
 void ATankAiController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//UE_LOG(LogTemp, Error, TEXT("ATankAiController BeginPlay()"));
 }
 void ATankAiController::Tick(float DeltaTime)
 {
@@ -52,9 +54,14 @@ void ATankAiController::SetPawn(APawn * InPawn)
 
 	if (InPawn)
 	{
-		ATank* PossesedTank = Cast<ATank>(InPawn);
-		if (!PossesedTank) { return; }
+		PossesedTank = Cast<ATank>(InPawn);
+		if (!PossesedTank) 
+		{
+			UE_LOG(LogTemp, Error, TEXT("PossesedTank is nullptr in TankAIController SetPawn()"));
+			return; 
+		}
 
+		PossesedTank->SetAiHealth();
 		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankAiController::OnPossesedTankDeath );
 	}
 }

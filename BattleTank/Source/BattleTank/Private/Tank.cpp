@@ -10,6 +10,11 @@ float ATank::GetHealthPercent() const
 {
 	return (float)CurrentHealth / (float)StartingHealth;
 }
+void ATank::SetAiHealth()
+{
+	StartingHealth = AIHealth;
+	CurrentHealth = AIHealth;
+}
 // Sets default values
 ATank::ATank()
 {
@@ -20,6 +25,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
+	//UE_LOG(LogTemp, Error, TEXT("ATank BeginPlay()"));
 
 	CurrentHealth = StartingHealth;
 }

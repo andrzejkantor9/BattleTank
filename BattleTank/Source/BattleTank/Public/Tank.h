@@ -27,6 +27,7 @@ public:
 		float GetHealthPercent() const;
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
 		void TankDeathExplosion();
+	void SetAiHealth();
 
 	FTankDelegate OnDeath;
 
@@ -37,6 +38,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		int32 StartingHealth = 100;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		int32 AIHealth = 40;
 	UPROPERTY(VisibleAnywhere, Category = "Health")
 		int32 CurrentHealth; //initialized in BeginPlay
 };

@@ -19,6 +19,7 @@ enum class EFiringState : uint8
 class UTankBarrel;
 class UTurret;
 class AProjectile;
+class ATank;
 
 //Holds barrel's properties and elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -61,6 +62,7 @@ private:
 
 	UTankBarrel *Barrel = nullptr;
 	UTurret *Turret = nullptr;
+	ATank* PossesedTank = nullptr;
 
 	double LastFireTime = 0.f;
 	FVector AimDirection;

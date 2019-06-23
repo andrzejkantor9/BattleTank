@@ -29,6 +29,8 @@ public:
 		void TankDeathExplosion();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
 		void RemovePlayerUI();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
+		void PlayShootingSFX();
 	void SetAiHealth();
 
 	FTankDelegate OnDeath;

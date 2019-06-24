@@ -4,10 +4,19 @@
 #include "TankMovementComponent.h"
 
 #include "TankTracks.h"
+#include "Tank.h"
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
+	if (FMath::Abs(Throw) > TankMovementSFXTriggerThrow)
+	{
+		ATank *PossesedTank = Cast<ATank>(GetOwner());
+		if (PossesedTank)
+		{
+			PossesedTank->TankMovingSFX();
+		}
+	}
 
 	LeftTrack->SetThrottle(Throw, 2.3f, 1.f);
 	RightTrack->SetThrottle(Throw, 2.3f, 1.f);

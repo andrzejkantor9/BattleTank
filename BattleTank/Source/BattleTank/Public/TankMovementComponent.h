@@ -30,6 +30,7 @@ private:
 
 	float ForwardThrow = 0.f;
 	float RightThrow = 0.f;
+	const float TankMovementSFXTriggerThrow = 0.5f;
 
 	virtual void RequestDirectMove(const FVector& OutMoveVelocity, bool bForceMaxSpeed) override;
 };

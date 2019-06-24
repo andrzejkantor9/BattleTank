@@ -30,6 +30,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
 		void RemovePlayerUI();
 	void SetAiHealth();
+	UFUNCTION(BlueprintImplementableEvent, Category = "Aiming")
+		void TankMovingSFX();
 
 	FTankDelegate OnDeath;
 

@@ -6,7 +6,6 @@
 #include "TankBarrel.h"
 #include "Turret.h"
 #include "Projectile.h"
-#include "Tank.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "Math/Rotator.h"
@@ -34,7 +33,6 @@ void UTankAimingComponent::BeginPlay()
 	Super::BeginPlay();
 
 	LastFireTime = FPlatformTime::Seconds();
-	PossesedTank = Cast<ATank>(GetOwner());
 }
 
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
@@ -146,18 +144,17 @@ void UTankAimingComponent::Fire()
 
 	if (FiringState ==EFiringState::Locked || FiringState == EFiringState::Aiming)
 	{
-		if (!PossesedTank)
-		{
-			UE_LOG(LogTemp, Error, TEXT("PossesedTank is nullptr in UTankAimingComponent Fire()."));
-			return;
-		}
-		PossesedTank->PlayShootingSFX();
 		//spawn the projectile at the socket location at the barrel
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
 
+		if (!Projectile)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Projectile is nullptr on UTankAimingComponent Fire()"));
+			return;
+		}
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 		--RoundsLeft;

@@ -55,13 +55,11 @@ void ATankAiController::SetPawn(APawn * InPawn)
 	if (InPawn)
 	{
 		PossesedTank = Cast<ATank>(InPawn);
-		if (!PossesedTank) 
+		if (PossesedTank)
 		{
-			UE_LOG(LogTemp, Error, TEXT("PossesedTank is nullptr in TankAIController SetPawn()"));
-			return; 
+			PossesedTank->SetAiHealth();
+			PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankAiController::OnPossesedTankDeath);
+			return;
 		}
-
-		PossesedTank->SetAiHealth();
-		PossesedTank->OnDeath.AddUniqueDynamic(this, &ATankAiController::OnPossesedTankDeath );
 	}
 }

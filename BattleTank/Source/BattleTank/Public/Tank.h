@@ -23,14 +23,12 @@ public:
 	) override;
 
 	//Return current health as a procentage of starting health, between 0 and 1
-	UFUNCTION(BlueprintPure, Category = "Healt")
+	UFUNCTION(BlueprintPure, Category = "Health")
 		float GetHealthPercent() const;
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
 		void TankDeathExplosion();
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
 		void RemovePlayerUI();
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Death")
-		void PlayShootingSFX();
 	void SetAiHealth();
 
 	FTankDelegate OnDeath;

@@ -33,6 +33,8 @@ protected:
 		UParticleSystemComponent *ImpactBlast = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		URadialForceComponent* ExplosionForce = nullptr;
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
+		void PlayShootingSFX();
 public:	
 	// Called every frame
 	void LaunchProjectile(float Speed);

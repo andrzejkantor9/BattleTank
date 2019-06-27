@@ -32,6 +32,8 @@ public:
 	void SetAiHealth();
 	UFUNCTION(BlueprintImplementableEvent, Category = "Aiming")
 		void TankMovingSFX();
+	UFUNCTION(BlueprintImplementableEvent, Category = "Sound")
+		void PlayAnnouncerSoundOnEnemyDeath();
 
 	FTankDelegate OnDeath;
 

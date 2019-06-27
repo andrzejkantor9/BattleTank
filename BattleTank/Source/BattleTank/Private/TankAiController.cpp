@@ -45,6 +45,7 @@ void ATankAiController::OnPossesedTankDeath()
 	if (!ensure(GetPawn())) { return; }
 	GetPawn()->DetachFromControllerPendingDestroy();
 	ATank* PossesedTank = Cast<ATank>(ControlledTank);
+	PossesedTank->PlayAnnouncerSoundOnEnemyDeath();
 	PossesedTank->TankDeathExplosion();
 }
 

@@ -24,13 +24,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 		void IntendTurnRight(float Throw);
 
+protected:
+	UPROPERTY(BlueprintReadOnly)
+		bool bIsTankMoving = false;
+
 private:
 	UTankTracks* LeftTrack = nullptr;
 	UTankTracks* RightTrack = nullptr;
 
 	float ForwardThrow = 0.f;
 	float RightThrow = 0.f;
-	const float TankMovementSFXTriggerThrow = 0.5f;
+	const float TankMovementSFXTriggerThrow = .99f;
 
 	virtual void RequestDirectMove(const FVector& OutMoveVelocity, bool bForceMaxSpeed) override;
 };

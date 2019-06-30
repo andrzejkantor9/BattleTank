@@ -30,7 +30,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
 		void RemovePlayerUI();
 	void SetAiHealth();
-	UFUNCTION(BlueprintImplementableEvent, Category = "Aiming")
+	UFUNCTION(BlueprintImplementableEvent, Category = "Sound")
 		void TankMovingSFX();
 	UFUNCTION(BlueprintImplementableEvent, Category = "Sound")
 		void PlayAnnouncerSoundOnEnemyDeath();

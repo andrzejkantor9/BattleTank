@@ -9,13 +9,19 @@
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
+	UE_LOG(LogTemp, Warning, TEXT("Throw: %f"), Throw);
 	if (FMath::Abs(Throw) > TankMovementSFXTriggerThrow)
 	{
 		ATank *PossesedTank = Cast<ATank>(GetOwner());
 		if (PossesedTank)
 		{
-			PossesedTank->TankMovingSFX();
+			//PossesedTank->TankMovingSFX();
 		}
+		bIsTankMoving = true;
+	}
+	else
+	{
+		bIsTankMoving = false;
 	}
 
 	LeftTrack->SetThrottle(Throw, 2.3f, 1.f);

@@ -27,6 +27,8 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly)
 		bool bIsTankMoving = false;
+	UPROPERTY(BlueprintReadOnly)
+		float TankMovementSFXTriggerThrow = .99f;
 
 private:
 	UTankTracks* LeftTrack = nullptr;
@@ -34,7 +36,6 @@ private:
 
 	float ForwardThrow = 0.f;
 	float RightThrow = 0.f;
-	const float TankMovementSFXTriggerThrow = .99f;
 
 	virtual void RequestDirectMove(const FVector& OutMoveVelocity, bool bForceMaxSpeed) override;
 };

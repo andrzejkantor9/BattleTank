@@ -18,6 +18,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 			//PossesedTank->TankMovingSFX();
 		}
 		bIsTankMoving = true;
+		UE_LOG(LogTemp, Warning, TEXT("TANK IS MOVING"));
 	}
 	else
 	{

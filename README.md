@@ -1,6 +1,12 @@
 # BattleTank
 Head to head tank fight with simple AI, terrain, controlls, particle effects and sound in Unreal Engine 4.
 
+Controlls:
+WSAD - movement<br/>
+LMB - shooting<br/>
+RMB - change view <br/>
+Mouse - rotate camera
+
 Dependency map after commit "changed pointers protection "return" into "ensure"":
 https://drive.google.com/file/d/1_KcXJRyfAT0rUMRKbnt9Tv16rHuiQSN6/view?usp=sharing
 

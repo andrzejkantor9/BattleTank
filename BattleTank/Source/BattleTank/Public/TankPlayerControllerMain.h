@@ -28,6 +28,8 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompRef); //BlueprintImplementableEvent does not need implementation to compile 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
+		void LoseGame(); 
 
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
 		UTankAimingComponent *TankAimingComponent = nullptr;

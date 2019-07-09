@@ -30,6 +30,7 @@ void ATankPlayerControllerMain::OnPossesedTankDeath()
 	StartSpectatingOnly();
 	PossesedTank->RemovePlayerUI();
 	PossesedTank->TankDeathExplosion();
+	LoseGame();
 }
 
 void ATankPlayerControllerMain::BeginPlay()

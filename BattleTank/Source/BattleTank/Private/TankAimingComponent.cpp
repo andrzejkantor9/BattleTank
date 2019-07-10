@@ -6,6 +6,7 @@
 #include "TankBarrel.h"
 #include "Turret.h"
 #include "Projectile.h"
+#include "TankPlayerControllerMain.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "Math/Rotator.h"
@@ -41,6 +42,17 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	if (RoundsLeft <= 0)
 	{
 		FiringState = EFiringState::OutOfAmmo;
+
+		//destroy the tank and call Blueprints
+		AActor *PossesedTank = GetOwner();
+		if (PossesedTank)
+		{
+			ATankPlayerControllerMain *PlayerController = Cast<ATankPlayerControllerMain>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+			if (PlayerController)
+			{
+				PlayerController->OnPossesedTankDeath();
+			}
+		}
 	}
 	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds) 
 	{

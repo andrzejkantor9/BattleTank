@@ -6,6 +6,7 @@
 #include "TankAimingComponent.h"
 #include "Tank.h"
 
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
@@ -45,6 +46,8 @@ void ATankPlayerControllerMain::BeginPlay()
 	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(TankAimingComponent)) { return; }
 	FoundAimingComponent(TankAimingComponent);
+	//int32 PlayerControllerIndex = UGameplayStatics::GetPlayerControllerID(this);
+	//UE_LOG(LogTemp, Error, TEXT("PlayerControllerIndex: %d."), PlayerControllerIndex);
 }
 
 void ATankPlayerControllerMain::Tick(float DeltaTime)

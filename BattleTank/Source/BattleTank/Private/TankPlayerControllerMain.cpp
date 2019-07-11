@@ -31,7 +31,6 @@ void ATankPlayerControllerMain::OnPossesedTankDeath()
 	StartSpectatingOnly();
 	PossesedTank->RemovePlayerUI();
 	PossesedTank->TankDeathExplosion();
-	LoseGame();
 }
 
 void ATankPlayerControllerMain::BeginPlay()
@@ -46,6 +45,14 @@ void ATankPlayerControllerMain::BeginPlay()
 	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(TankAimingComponent)) { return; }
 	FoundAimingComponent(TankAimingComponent);
+	/*
+	UKismetSystemLibrary::QuitGame
+	(
+		GetWorld(),
+		UGameplayStatics::GetPlayerController(GetWorld(), 0),
+		EQuitPreference::Quit,
+		false
+	);*/
 	//int32 PlayerControllerIndex = UGameplayStatics::GetPlayerControllerID(this);
 	//UE_LOG(LogTemp, Error, TEXT("PlayerControllerIndex: %d."), PlayerControllerIndex);
 }
@@ -55,6 +62,13 @@ void ATankPlayerControllerMain::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	AimTowardsCrosshair();
+}
+
+void ATankPlayerControllerMain::BeginDestroy()
+{
+	Super::BeginDestroy();
+	
+	ATank::ResetAiTankCount();
 }
 
 void ATankPlayerControllerMain::AimTowardsCrosshair()

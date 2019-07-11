@@ -2,9 +2,14 @@
 
 #include "Tank.h"
 
+#include "TankAiController.h"
+
 #include "GameFramework/Actor.h"
 #include "Math/UnrealMathUtility.h"
 #include "Windows/WindowsPlatformMath.h"
+#include "Kismet/KismetSystemLibrary.h"
+
+int32 ATank::AiTankCount = 0;
 
 float ATank::GetHealthPercent() const
 {
@@ -25,9 +30,18 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	//UE_LOG(LogTemp, Error, TEXT("ATank BeginPlay()"));
-
+	/*
+	if (!bWasStaticAiTankCountReset) 
+	{ 
+		ResetAiTankCount();  
+		bWasStaticAiTankCountReset = true;
+	}*/
 	CurrentHealth = StartingHealth;
+
+	ATankAiController *AiTankController = Cast<ATankAiController>(GetController());
+	if (AiTankController) { ++AiTankCount;  }
+	NonStaticAiTankCount = AiTankCount;
+	UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), NonStaticAiTankCount);
 }
 
 float ATank::TakeDamage

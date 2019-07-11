@@ -15,8 +15,6 @@
 void ATankAiController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//UE_LOG(LogTemp, Error, TEXT("ATankAiController BeginPlay()"));
 }
 void ATankAiController::Tick(float DeltaTime)
 {
@@ -52,6 +50,7 @@ void ATankAiController::OnPossesedTankDeath()
 void ATankAiController::SetPawn(APawn * InPawn)
 {
 	Super::SetPawn(InPawn);
+	UE_LOG(LogTemp, Warning, TEXT("ATankAiController BeginPlay()"));
 
 	if (InPawn)
 	{

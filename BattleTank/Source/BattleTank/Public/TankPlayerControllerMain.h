@@ -28,8 +28,6 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompRef); //BlueprintImplementableEvent does not need implementation to compile 
-	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
-		void LoseGame(); 
 
 	UPROPERTY(BlueprintReadOnly, Category = "Aiming")
 		UTankAimingComponent *TankAimingComponent = nullptr;
@@ -43,6 +41,8 @@ private:
 		float LineTraceRange = 1000000.f;
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000.f; //find sensible default
+
+	virtual void BeginDestroy() override;
 
 	FVector2D ScreenLocation;
 	//start the tank aiming the barrel towards crosshair so that a shoot would hit

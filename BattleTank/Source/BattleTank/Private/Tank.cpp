@@ -30,12 +30,6 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	/*
-	if (!bWasStaticAiTankCountReset) 
-	{ 
-		ResetAiTankCount();  
-		bWasStaticAiTankCountReset = true;
-	}*/
 	CurrentHealth = StartingHealth;
 
 	ATankAiController *AiTankController = Cast<ATankAiController>(GetController());

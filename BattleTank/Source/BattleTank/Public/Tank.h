@@ -37,11 +37,13 @@ public:
 
 	FTankDelegate OnDeath;
 
-
 	static void ResetAiTankCount() { AiTankCount = 0; }
+	static void DecrementAiTankCount() { --AiTankCount; }
 protected:
 	UPROPERTY(BlueprintReadOnly)
 		int32 NonStaticAiTankCount;
+
+	static int32 GetAiTankCount() { return AiTankCount; }
 
 private:
 	ATank();
@@ -49,7 +51,6 @@ private:
 	virtual void BeginPlay() override;
 
 	static int32 AiTankCount;
-	bool bWasStaticAiTankCountReset = false;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		int32 StartingHealth = 100;

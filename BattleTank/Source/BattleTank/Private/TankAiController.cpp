@@ -45,12 +45,13 @@ void ATankAiController::OnPossesedTankDeath()
 	ATank* PossesedTank = Cast<ATank>(ControlledTank);
 	PossesedTank->PlayAnnouncerSoundOnEnemyDeath();
 	PossesedTank->TankDeathExplosion();
+
+	ATank::DecrementAiTankCount();
 }
 
 void ATankAiController::SetPawn(APawn * InPawn)
 {
 	Super::SetPawn(InPawn);
-	UE_LOG(LogTemp, Warning, TEXT("ATankAiController BeginPlay()"));
 
 	if (InPawn)
 	{

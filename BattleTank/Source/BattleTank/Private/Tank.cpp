@@ -20,6 +20,11 @@ void ATank::SetAiHealth()
 	StartingHealth = AIHealth;
 	CurrentHealth = AIHealth;
 }
+int32 ATank::BlueprintGetStaticAiTankCount()
+{
+	NonStaticAiTankCount = AiTankCount;
+	return NonStaticAiTankCount;
+}
 // Sets default values
 ATank::ATank()
 {

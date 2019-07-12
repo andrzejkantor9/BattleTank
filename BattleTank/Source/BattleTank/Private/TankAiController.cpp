@@ -47,6 +47,7 @@ void ATankAiController::OnPossesedTankDeath()
 	PossesedTank->TankDeathExplosion();
 
 	ATank::DecrementAiTankCount();
+	UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), ATank::GetAiTankCount());
 }
 
 void ATankAiController::SetPawn(APawn * InPawn)

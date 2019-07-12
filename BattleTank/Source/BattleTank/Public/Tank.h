@@ -34,16 +34,16 @@ public:
 		void TankMovingSFX();
 	UFUNCTION(BlueprintImplementableEvent, Category = "Sound")
 		void PlayAnnouncerSoundOnEnemyDeath();
+	UFUNCTION(BlueprintCallable, Category = "Death")
+		int32 BlueprintGetStaticAiTankCount();
 
 	FTankDelegate OnDeath;
 
 	static void ResetAiTankCount() { AiTankCount = 0; }
 	static void DecrementAiTankCount() { --AiTankCount; }
-protected:
-	UPROPERTY(BlueprintReadOnly)
-		int32 NonStaticAiTankCount;
-
 	static int32 GetAiTankCount() { return AiTankCount; }
+protected:
+	int32 NonStaticAiTankCount;
 
 private:
 	ATank();

@@ -30,7 +30,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void InitializeComponent(UTankBarrel* BarrelToSet, UTurret* TurretToSet);
 	UFUNCTION(BlueprintCallable, Category = "Aiming")
-		void Fire();
+		bool bCanTankFire();
 
 	void AimAt(FVector HitLocation);
 	EFiringState GetFiringState() const;

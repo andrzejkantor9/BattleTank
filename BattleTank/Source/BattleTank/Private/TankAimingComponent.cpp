@@ -148,10 +148,10 @@ int32 UTankAimingComponent::GetRoundsLeft() const
 	return RoundsLeft;
 }
 
-void UTankAimingComponent::Fire()
+bool UTankAimingComponent::bCanTankFire()
 {
-	if (!ensure(Barrel)) {	return;	}
-	if(!ensure(ProjectileBlueprint)) { return; }
+	if (!ensure(Barrel)) {	return false;	}
+	if(!ensure(ProjectileBlueprint)) { return false; }
 
 
 	if (FiringState ==EFiringState::Locked || FiringState == EFiringState::Aiming)
@@ -165,10 +165,13 @@ void UTankAimingComponent::Fire()
 		if (!Projectile)
 		{
 			UE_LOG(LogTemp, Error, TEXT("Projectile is nullptr on UTankAimingComponent Fire()"));
-			return;
+			return false;
 		}
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 		--RoundsLeft;
+		return true;
 	}
+
+	return false;
 }

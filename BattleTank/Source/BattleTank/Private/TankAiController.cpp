@@ -34,7 +34,7 @@ void ATankAiController::Tick(float DeltaTime)
 	//if aiming or locked then fire
 	if (TankAimingComponent->GetFiringState() == EFiringState::Locked)
 	{
-		TankAimingComponent->Fire();
+		TankAimingComponent->bCanTankFire();
 	}
 }
 
@@ -43,11 +43,12 @@ void ATankAiController::OnPossesedTankDeath()
 	if (!ensure(GetPawn())) { return; }
 	GetPawn()->DetachFromControllerPendingDestroy();
 	ATank* PossesedTank = Cast<ATank>(ControlledTank);
-	PossesedTank->PlayAnnouncerSoundOnEnemyDeath();
-	PossesedTank->TankDeathExplosion();
 
 	ATank::DecrementAiTankCount();
-	UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), ATank::GetAiTankCount());
+	PossesedTank->UpdateAiTankCount();
+	PossesedTank->PlayAnnouncerSoundOnEnemyDeath();
+	PossesedTank->TankDeathExplosion();
+	//UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), ATank::GetAiTankCount());
 }
 
 void ATankAiController::SetPawn(APawn * InPawn)

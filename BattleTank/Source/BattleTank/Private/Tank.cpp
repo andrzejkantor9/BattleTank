@@ -40,7 +40,7 @@ void ATank::BeginPlay()
 	ATankAiController *AiTankController = Cast<ATankAiController>(GetController());
 	if (AiTankController) { ++AiTankCount;  }
 	NonStaticAiTankCount = AiTankCount;
-	UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), NonStaticAiTankCount);
+	//UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), NonStaticAiTankCount);
 }
 
 float ATank::TakeDamage

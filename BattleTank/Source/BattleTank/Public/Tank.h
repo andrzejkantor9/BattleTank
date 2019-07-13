@@ -34,6 +34,8 @@ public:
 		void TankMovingSFX();
 	UFUNCTION(BlueprintImplementableEvent, Category = "Sound")
 		void PlayAnnouncerSoundOnEnemyDeath();
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
+		void UpdateAiTankCount();
 	UFUNCTION(BlueprintCallable, Category = "Death")
 		int32 BlueprintGetStaticAiTankCount();
 

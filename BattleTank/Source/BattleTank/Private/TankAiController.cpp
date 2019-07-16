@@ -46,6 +46,11 @@ void ATankAiController::OnPossesedTankDeath()
 
 	ATank::DecrementAiTankCount();
 	PossesedTank->UpdateAiTankCount();
+	if (ATank::GetAiTankCount() == 0) 
+	{ 
+		PossesedTank->FinishGame();
+	}
+
 	PossesedTank->PlayAnnouncerSoundOnEnemyDeath();
 	PossesedTank->TankDeathExplosion();
 	//UE_LOG(LogTemp, Warning, TEXT("AiTankCount: %d"), ATank::GetAiTankCount());

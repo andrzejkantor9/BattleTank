@@ -4,6 +4,7 @@
 
 #include "TankAiController.h"
 
+#include "TimerManager.h"
 #include "GameFramework/Actor.h"
 #include "Math/UnrealMathUtility.h"
 #include "Windows/WindowsPlatformMath.h"

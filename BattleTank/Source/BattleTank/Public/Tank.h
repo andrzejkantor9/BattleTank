@@ -28,7 +28,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
 		void TankDeathExplosion();
 	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
-		void RemovePlayerUI();
+		void FinishGame();
 	void SetAiHealth();
 	UFUNCTION(BlueprintImplementableEvent, Category = "Sound")
 		void TankMovingSFX();

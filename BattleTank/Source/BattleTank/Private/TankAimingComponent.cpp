@@ -145,6 +145,7 @@ EFiringState UTankAimingComponent::GetFiringState() const
 
 int32 UTankAimingComponent::GetRoundsLeft() const
 {
+	UE_LOG(LogTemp, Warning, TEXT("Rounds Left: %d"), RoundsLeft);
 	return RoundsLeft;
 }
 

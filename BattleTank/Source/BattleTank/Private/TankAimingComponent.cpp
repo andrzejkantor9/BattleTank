@@ -47,7 +47,9 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 		AActor *PossesedTank = GetOwner();
 		if (PossesedTank)
 		{
-			ATankPlayerControllerMain *PlayerController = Cast<ATankPlayerControllerMain>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+			ATankPlayerControllerMain *PlayerController = Cast<ATankPlayerControllerMain>(GetOwner()->GetInstigatorController());
+	//			Cast<ATankPlayerControllerMain>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+			
 			if (PlayerController)
 			{
 				PlayerController->OnPossesedTankDeath();
